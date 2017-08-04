@@ -130,17 +130,28 @@ public class App {
       System.out.println(buildWord(displayable));
       System.out.println(" ");
 
-      if (InWord == false) {
-
-        // incorrect guess
-            numberOfLives = numberOfLives - 1;
-            displayGallows(numberOfLives = 0);
-            System.out.println("Incorrect!");
-            System.out.println("You have " + Integer.toString(numberOfLives) + " lives left!");
-            System.out.println("The Hangman was " + buildWord(letters) + "!");
-            gameOn = false;
-            break;
-        }
+      // if (InWord == false) {
+      //   int displayGallows = (InWord) ? 1 : 0;
+      //   for (int i = 0; i == numberOfLives; i++) {
+      //     if (numberOfLives == numberOfLives - 1) {
+      //       displayGallows(numberOfLives = 5);
+      //       System.out.println("Incorrect!");
+      //       System.out.println("You have " + Integer.toString(numberOfLives) + " lives left!");
+      //       gameOn = true;
+      //       break;
+      //     } else if (numberOfLives == numberOfLives - 2) {
+      //       displayGallows(numberOfLives = 0);
+      //       System.out.println("Incorrect!");
+      //       System.out.println("You have " + Integer.toString(numberOfLives) + " lives left!");
+      //       System.out.println("The Hangman was " + buildWord(letters) + "!");
+      //       gameOn = false;
+      //       break;
+      //     }
+      //   }
+      // }
+        System.out.println("Incorrect!");
+        System.out.println("You have " + Integer.toString(numberOfLives) + " lives left!");
+        System.out.println("You have guessed the following letters: " + guesses);
       }
     }
   }
