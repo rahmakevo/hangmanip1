@@ -1,3 +1,4 @@
+// imports
 import java.util.ArrayList;
 import java.util.List;
 import java.io.Console;
@@ -5,10 +6,11 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
+//main class method
 public class App {
   Console console = System.console();
   private static String[] printArray(String[] anArray) {
-    // System.out.println(Arrays.toString(anArray));
+    System.out.println(Arrays.toString(anArray));
     return anArray;
   }
 
@@ -32,19 +34,19 @@ public class App {
 
     switch(lives) {
       case 5:
-             System.out.println(' ');
-             System.out.println(' ');
-             System.out.println(' ');
-             System.out.println(' ');
-             System.out.println(' ');
-             System.out.println("------");
+             System.out.println("-----+");
+             System.out.println("   \\|");
+             System.out.println("     |");
+             System.out.println("     |");
+             System.out.println("     |");
+             System.out.println("-----+");
              break;
       case 4:
-             System.out.println("      ");
-             System.out.println("     |");
-             System.out.println("     |");
-             System.out.println("     |");
-             System.out.println("     |");
+             System.out.println("-----+");
+             System.out.println("|  \\|");
+             System.out.println("o    |");
+             System.out.println("+    |");
+             System.out.println("^  \\|");
              System.out.println("-----+");
              break;
       case 2:
@@ -75,7 +77,7 @@ public class App {
   }
 
   public static void main(String[] args) {
-    String[] outputWord = {"John", "kevin", "victor"};
+    String[] outputWord = {"john", "kevin", "victor"};
     printArray(outputWord);
 
     //randomize array
@@ -101,57 +103,70 @@ public class App {
     System.out.println("Random Hangman, I CHOOSE YOU!");
     System.out.println(buildWord(displayable));
     System.out.println("You have 6 lives!");
+
     boolean gameOn = true;
 
-    // main game loop
+    // // main game loop
     while (gameOn == true) {
-
-      // takes user input
+    //
+    //   // takes user input
       System.out.println("Guess a letter: ");
       String guess = input.nextLine();
-
-      // add the new guess to the list of guesses
+    //
+    //   // add the new guess to the list of guesses
       guesses.add(guess);
-
-      // used for the app logic later but has to be reset each round
+    //
+    //   // used for the app logic later but has to be reset each round
       boolean InWord = false;
       boolean Winner = false;
-
-      // check input against each letter
+    //
+    //   // check input against each letter
       for (int i = 0; i < letters.length; i++) {
         if (letters[i].equals(guess)) {
-
+    //   //display the user guesses
           displayable[i] = guess;
           InWord = true;
         }
       }
+          // display a list of displayable characters
+          System.out.println(buildWord(displayable));
+          System.out.println(' ');
+    //    // where InWord == false thus incorrect guess
+          if (InWord == false) {
+            // Incorrect guess
+            numberOfLives -= 1;
+            displayGallows(numberOfLives);
 
-      // display a list of displayable characters
-      System.out.println(buildWord(displayable));
-      System.out.println(" ");
-
-      // if (InWord == false) {
-      //   int displayGallows = (InWord) ? 1 : 0;
-      //   for (int i = 0; i == numberOfLives; i++) {
-      //     if (numberOfLives == numberOfLives - 1) {
-      //       displayGallows(numberOfLives = 5);
-      //       System.out.println("Incorrect!");
-      //       System.out.println("You have " + Integer.toString(numberOfLives) + " lives left!");
-      //       gameOn = true;
-      //       break;
-      //     } else if (numberOfLives == numberOfLives - 2) {
-      //       displayGallows(numberOfLives = 0);
-      //       System.out.println("Incorrect!");
-      //       System.out.println("You have " + Integer.toString(numberOfLives) + " lives left!");
-      //       System.out.println("The Hangman was " + buildWord(letters) + "!");
-      //       gameOn = false;
-      //       break;
-      //     }
-      //   }
-      // }
-        System.out.println("Incorrect!");
-        System.out.println("You have " + Integer.toString(numberOfLives) + " lives left!");
-        System.out.println("You have guessed the following letters: " + guesses);
-      }
+            //If you run out of lives:
+            if (numberOfLives == 0) {
+              System.out.println("Incorrect");
+              System.out.println("You have " + Integer.toString(numberOfLives) + "lives left");
+              System.out.println("You have guessed the following letters: " + guesses);
+              System.out.println("The Hangman was " + buildWord(letters) + "!");
+              gameOn = false;
+              break;
+            }
+            System.out.println("Incorrect!");
+            System.out.println("You have " + Integer.toString(numberOfLives) + " lives left!");
+            System.out.println("You have guessed the following letters: " + guesses);
+          } else {
+          System.out.println("Correct!");
+          System.out.println("You have guessed the following letters: " + guesses);
+    //     // if user has a correct guess
+          for (int inx=0; inx < letters.length; inx++) {
+            if (displayable[inx].equals("_")) {
+              Winner = false;
+              break;
+            } else{
+              Winner = true;
+            }
+          }
+           }
+           if (Winner == true) {
+             System.out.println("A winner is you!");
+             System.out.println("The Hangman was " + buildWord(letters) + "!");
+             gameOn = false;
+           }
+         }
+       }
     }
-  }
